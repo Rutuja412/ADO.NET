@@ -12,3 +12,11 @@ Create PROCEDURE spAddNewCustomer
 @Pincode varchar (100)
 AS
 insert into Customer(CustomerName,Address,PhoneNumber,Country,Salary,Pincode)values (@CustomerName,@Address,@PhoneNumber,@Country,@Salary,@Pincode);
+
+-- Delete employee
+create PROCEDURE spDeleteCustomer
+@CustomerName varchar(200),
+@CustomerId int
+AS
+delete from Customer where CustomerName=CustomerName and CustomerId= @CustomerId;
+

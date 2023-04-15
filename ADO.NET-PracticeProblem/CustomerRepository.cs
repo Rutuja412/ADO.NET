@@ -78,6 +78,31 @@ namespace ADO.NET_PracticeProblem
                 sqlConnection.Close();
             }
         }
+        public static void DeleteEmployee(CustomerDetails details)
+        {
+            try
+            {
+                sqlConnection = new SqlConnection(connectionString);
+                SqlCommand command = new SqlCommand("dbo.spDeleteCustomer", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                command.Parameters.AddWithValue("@CustomerName", details.CustomerName);
+                command.Parameters.AddWithValue("@CustomerId", details.CustomerID);
+                int num = command.ExecuteNonQuery();
+                if (num != 0)
+                    Console.WriteLine("Customer Delete Successfully");
+                else
+                    Console.WriteLine("Something went Wrong");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
     
 }
