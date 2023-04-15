@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Reflection;
 using System.Text;
 
 namespace ADO.NET_PracticeProblem
@@ -20,7 +21,23 @@ namespace ADO.NET_PracticeProblem
                 sqlConnection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 Console.WriteLine("Connections is established successfully.....");
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        details.CustomerID = Convert.ToInt32(reader["CustomerID"] == DBNull.Value ? default : reader["CustomerID"]);
+                        details.CustomerName = reader["CustomerName"] == DBNull.Value ? default : reader["CustomerName"].ToString();
+                      
+                        details.Address = reader["Address"] == DBNull.Value ? default : reader["Address"].ToString();
+                        details.PhoneNumber = reader["PhoneNumber"] == DBNull.Value ? default : reader["PhoneNumber"].ToString();
 
+                        details.Country = reader["Country"] == DBNull.Value ? default : reader["Country"].ToString();
+                        details.Salary = reader["Salary"] == DBNull.Value ? default : reader["Salary"].ToString();
+                        details.Pincode = reader["Pincode"] == DBNull.Value ? default : reader["Pincode"].ToString();
+                      
+                        Console.WriteLine("{0},{1},{2},{3},{4},{5},{6}", details.CustomerID, details.CustomerName, details.Address, details.PhoneNumber, details.Country, details.Salary, details.Pincode);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -32,4 +49,5 @@ namespace ADO.NET_PracticeProblem
             }
         }
     }
+    
 }
