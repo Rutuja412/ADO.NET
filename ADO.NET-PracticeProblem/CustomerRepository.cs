@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Text;
@@ -38,6 +39,35 @@ namespace ADO.NET_PracticeProblem
                         Console.WriteLine("{0},{1},{2},{3},{4},{5},{6}", details.CustomerID, details.CustomerName, details.Address, details.PhoneNumber, details.Country, details.Salary, details.Pincode);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+        public static void AddCustomer(CustomerDetails details)
+        {
+            try
+            {
+                sqlConnection = new SqlConnection(connectionString);
+                SqlCommand command = new SqlCommand("dbo.spAddNewCustomer", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                command.Parameters.AddWithValue("@CustomerName", details.CustomerName);
+                command.Parameters.AddWithValue("@Address", details.Address );
+                command.Parameters.AddWithValue("@PhoneNumber", details.PhoneNumber);
+                command.Parameters.AddWithValue("@Country", details.Country);
+                command.Parameters.AddWithValue("@Salary", details.Salary);
+                command.Parameters.AddWithValue("@Pincode", details.Pincode);
+                int num = command.ExecuteNonQuery();
+                if (num != 0)
+                    Console.WriteLine("Customer Added Successfully");
+                else
+                    Console.WriteLine("Something went Wrong");
             }
             catch (Exception ex)
             {
