@@ -6,4 +6,8 @@
     <RootNamespace>ADO.NET_PracticeProblem</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
 </Project>

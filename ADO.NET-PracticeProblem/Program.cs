@@ -7,6 +7,7 @@ namespace ADO.NET_PracticeProblem
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to ADO.NET Practice Problem");
+            CustomerRepository.GetAllCustomers();
         }
     }
 }
