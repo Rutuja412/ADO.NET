@@ -19,4 +19,3 @@ create PROCEDURE spDeleteCustomer
 @CustomerId int
 AS
 delete from Customer where CustomerName=CustomerName and CustomerId= @CustomerId;
-

@@ -9,6 +9,7 @@ namespace ADO.NET_PracticeProblem
 {
     public class CustomerRepository
     {
+        //Store the connection string in the ConnectionString variable
         public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=PracticeProblem;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static SqlConnection sqlConnection = null;
         public static void GetAllCustomers()
@@ -16,14 +17,21 @@ namespace ADO.NET_PracticeProblem
             try
             {
                 CustomerDetails details = new CustomerDetails();
+                //Create the SqlConnection object
                 sqlConnection = new SqlConnection(connectionString);
                 string query = "select * from Customer";
+                //Create the SqlCommand object by passing the query and connection object as parameters
                 SqlCommand cmd = new SqlCommand(query, sqlConnection);
+                //Open the Connection
                 sqlConnection.Open();
+                // Executing the Stored Procedure using ExecuteReader method
+                //SqlDataReader requires an active and open connection
                 SqlDataReader reader = cmd.ExecuteReader();
                 Console.WriteLine("Connections is established successfully.....");
                 if (reader.HasRows)
+                //Read the data from the SqlDataReader 
                 {
+                    //Read() method will returns true as long as data is there in the SqlDataReader
                     while (reader.Read())
                     {
                         details.CustomerID = Convert.ToInt32(reader["CustomerID"] == DBNull.Value ? default : reader["CustomerID"]);
@@ -54,8 +62,11 @@ namespace ADO.NET_PracticeProblem
             try
             {
                 sqlConnection = new SqlConnection(connectionString);
+                //Create the SqlCommand object by passing the stored procedure name and connection object as parameters
                 SqlCommand command = new SqlCommand("dbo.spAddNewCustomer", sqlConnection);
+                //Specify the command type as Stored Procedure
                 command.CommandType = CommandType.StoredProcedure;
+                //Open the Connection
                 sqlConnection.Open();
                 command.Parameters.AddWithValue("@CustomerName", details.CustomerName);
                 command.Parameters.AddWithValue("@Address", details.Address );
@@ -103,6 +114,7 @@ namespace ADO.NET_PracticeProblem
                 sqlConnection.Close();
             }
         }
+       
     }
     
 }
