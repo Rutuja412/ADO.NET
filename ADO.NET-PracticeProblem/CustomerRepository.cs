@@ -114,7 +114,34 @@ namespace ADO.NET_PracticeProblem
                 sqlConnection.Close();
             }
         }
-       
+        public static void UpdateSalary(CustomerDetails details)
+        {
+            try
+            {
+                sqlConnection = new SqlConnection(connectionString);
+                SqlCommand command = new SqlCommand("dbo.spUpdateCustomer", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                command.Parameters.AddWithValue("@CustomerName", details.CustomerName);
+                command.Parameters.AddWithValue("@Salary", details.Salary);
+
+                int num = command.ExecuteNonQuery();
+                if (num != 0)
+
+                    Console.WriteLine("Salary Updated Successfully");
+                else
+                    Console.WriteLine("Salary not updated......Try Again !!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
     }
     
 }

@@ -19,3 +19,17 @@ create PROCEDURE spDeleteCustomer
 @CustomerId int
 AS
 delete from Customer where CustomerName=CustomerName and CustomerId= @CustomerId;
+--------update salary
+create or alter  procedure [dbo].[spUpdateCustomer]
+(
+@CustomerName  nvarchar(200),
+@Salary varchar(100)
+
+)
+as
+begin
+update Customer
+Set Salary=@Salary
+where CustomerName=@CustomerName ;
+end
+GO

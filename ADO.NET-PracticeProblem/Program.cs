@@ -8,7 +8,7 @@ namespace ADO.NET_PracticeProblem
         {
             Console.WriteLine("Welcome to ADO.NET Practice Problem");
             Console.WriteLine("Please select given options");
-            Console.WriteLine("1.Get all Customers\n" + "2.Add new customer data\n" + "3. Delete customer \n" + "4.Exit\n");
+            Console.WriteLine("1.Get all Customers\n" + "2.Add new customer data\n" + "3. Delete customer \n" + "4.Update Salary\n");
 
 
             int option = Convert.ToInt32(Console.ReadLine());
@@ -42,6 +42,15 @@ namespace ADO.NET_PracticeProblem
                     Console.WriteLine("-------------------------------------------");
                     CustomerRepository.GetAllCustomers();
                     break;
+                    case 4:
+                    CustomerDetails person3 = new CustomerDetails();
+                    person3.CustomerName = "Rutuja";
+                    person3.Salary = "65000";
+                    CustomerRepository.UpdateSalary(person3);
+                    Console.WriteLine("-----------");
+                    CustomerRepository.GetAllCustomers();
+                    break;
+
             }
 
 
